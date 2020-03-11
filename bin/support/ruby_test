@@ -51,7 +51,7 @@ bundler.install
 
 puts "bundler path: #{bundler.bundler_path}"
 
-LanguagePack::ShellHelpers.user_env_hash["PATH"] = "#{bundler.bundler_path}:#{LanguagePack::ShellHelpers.user_env_hash["PATH"]}"
+LanguagePack::ShellHelpers.user_env_hash["PATH"] = "#{bundler.bundler_path}/bin:#{LanguagePack::ShellHelpers.user_env_hash["PATH"]}"
 Dir.chdir(build_dir)
 
 execute_test(
