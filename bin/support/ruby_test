@@ -15,6 +15,9 @@ require "language_pack/ruby"
 include LanguagePack::ShellHelpers
 
 def execute_test(command)
+  execute_command("which bundle")
+  execute_command("env | grep PATH")
+  puts "=============="
   topic("Running test: #{command}")
   execute_command(command)
   exit $?.exitstatus
@@ -45,6 +48,8 @@ bundler = LanguagePack::Helpers::BundlerWrapper.new(
 )
 # load bundler
 bundler.install
+
+puts "bundler path: #{bundler.bundler_path}"
 
 LanguagePack::ShellHelpers.user_env_hash["PATH"] = "#{bundler.bundler_path}:#{LanguagePack::ShellHelpers.user_env_hash["PATH"]}"
 Dir.chdir(build_dir)
