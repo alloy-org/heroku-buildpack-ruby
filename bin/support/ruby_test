@@ -30,7 +30,7 @@ def execute_command(command)
 end
 
 # $ bin/test BUILD_DIR ENV_DIR ARTIFACT_DIR
-build_dir, env_dir, artifact_dir = ARGV
+build_dir, env_dir, _ = ARGV
 LanguagePack::ShellHelpers.initialize_env(env_dir)
 
 # The `ruby_test-compile` program installs a version of Ruby for the
@@ -46,6 +46,7 @@ bundler = LanguagePack::Helpers::BundlerWrapper.new(
 # load bundler
 bundler.install
 
+LanguagePack::ShellHelpers.user_env_hash["PATH"] = "#{bundler.bundler_path}:#{LanguagePack::ShellHelpers.user_env_hash["PATH"]}"
 Dir.chdir(build_dir)
 
 execute_test(
